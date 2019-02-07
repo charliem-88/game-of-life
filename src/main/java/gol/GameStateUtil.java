@@ -2,11 +2,19 @@ package gol;
 
 import java.util.List;
 
+/**
+ * Utility function for game state
+ */
 public class GameStateUtil {
+
+    private GameStateUtil(){
+
+    }
 
     /**
      * Create an initial GameState based on a list of alive Cells
      */
+
     public static GameState initialise(int size, List<Cell> alive) {
         byte[][] out = new byte[size][size];
 

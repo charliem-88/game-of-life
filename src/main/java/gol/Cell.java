@@ -1,7 +1,7 @@
 package gol;
 
 /**
- * create a cell based on x and y co-ordinates on the grid. Also set the cell to DEAD or ALIVE based on value.
+ * A representation of a cell's position
  */
 class Cell {
     private final int x;

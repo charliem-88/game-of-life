@@ -1,7 +1,7 @@
 package gol;
 
 /**
- *
+ * represents the immutable state of a board
  */
 class GameState {
 
@@ -13,9 +13,8 @@ class GameState {
     }
 
     /**
-     * create the grid for printing to the console - loop over the cells and set alive cells to "♦" and dead cells to "♢".
-     *
-     * @return
+     * create output representing the grid for printing to the console - loop over the cells and set alive cells to "♦"
+     * and dead cells to "♢"
      */
     @Override
     public String toString() {
@@ -39,7 +38,9 @@ class GameState {
         return sb.toString();
     }
 
-
+    /**
+     * Constructs a new game state from the provided grid
+     */
     public GameState(byte[][] grid) {
         this.grid = grid;
     }
@@ -81,20 +82,16 @@ class GameState {
         return neighbours;
     }
 
-    public byte[][] grid() {
-        return grid;
-    }
-
     /**
      * Applies the Game of Life rules to the current game state, returning a new GameState
      */
-
     public GameState advance() {
         int size = grid.length;
         byte[][] out = new byte[size][size];
 
         // Will set this if the grid needs to expand
-        // grid will always expand if there is a live cell on the edge - cells will never have less than 8 surrounding co-ordinates
+        // grid will always expand if there is a live cell on the edge - live cells will never have less than 8
+        // surrounding co-ordinates
         boolean needsExpand = false;
 
         // Loop over all the cells in the grid
@@ -121,14 +118,15 @@ class GameState {
                     }
                 } else {
                     // creation of life rule
-                    if (neighbours == 3) {//create new life in cell with 3 neighbours
+                    if (neighbours == 3) {
                         cellShouldLive = true;
                     }
                 }
                 if (cellShouldLive) {
                     // It's alive!
                     out[y][x] = Cell.ALIVE;
-                    if (x == 0 || y == 0 || x == size - 1 || y == size - 1) { //checks for live cells around the edge of the board in case it needs to expand
+                    if (x == 0 || y == 0 || x == size - 1 || y == size - 1) {
+                        //checks for live cells around the edge of the board in case it needs to expand
                         needsExpand = true;
                     }
                 } else {
@@ -158,14 +156,16 @@ class GameState {
         // Note it produces a brand new GameState rather than modifying the original one
         return new GameState(out);
     }
+
     /**
      * Returns if a particular cell is alive or dead
      */
     public boolean isAlive(int x, int y) {
         return grid[y][x] == Cell.ALIVE;
     }
+
     /**
-     * Returns the total number of alive cells., used in unit testing
+     * Returns the total number of alive cells.
      */
     public int aliveCount() {
         int count = 0;
